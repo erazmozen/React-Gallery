@@ -16,7 +16,7 @@ const useStorage = (file) => {
     // Kada upload nesto koristeci ovaj ref zelimo da file ima ime fajla koji upload
     const storageRef = projectStorage.ref(file.name);
     // Ref za kolekciju u kojoj cuvamo url
-    const collectionRef = projectFirestore.collection("iamges");
+    const collectionRef = projectFirestore.collection("images");
     // Upload file u ref gore. .put je async, tako da nam treba nesto da znamo kada je zavrseno
     storageRef.put(file).on(
       "state_changed",
