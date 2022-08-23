@@ -33,7 +33,11 @@ body {
 /* Forma */
 
 /* Progress bar */
-
+.progress-bar {
+  height: 5px;
+  background: var(--primary);
+  margin-top: 20px;
+}
 /* Galerija */
 
 /* Modal */
