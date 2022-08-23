@@ -13,7 +13,7 @@ const useStorage = (file) => {
     const storageRef = projectStorage.ref(file.name);
     // Upload file u ref gore. .put je async, tako da nam treba nesto da znamo kada je zavrseno
     storageRef.put(file).on(
-      "state_change",
+      "state_changed",
       (snap) => {
         // snap je objekat koji ima vrednosti preko kojih mozemo da odredimo progress
         let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
