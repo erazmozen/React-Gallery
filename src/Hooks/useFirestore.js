@@ -9,6 +9,7 @@ const useFirestore = (collection) => {
   useEffect(() => {
     const unsub = projectFirestore
       .collection(collection)
+      // prema ovim vrednostima ih rasporedjujemo
       .orderBy("createdAt", "desc")
       // snap nas obavestava svaki put kada se stanje promeni u firestore
       .onSnapshot((snap) => {
