@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { projectStorage } from "../firebase/config";
+import {
+  projectStorage,
+  projectFirestore,
+  timestamp,
+} from "../firebase/config";
 
 // Hook zaduzen za fule upload i vracanje vrednosti (proggres, error, url..)
 const useStorage = (file) => {
@@ -11,6 +15,8 @@ const useStorage = (file) => {
     // Refs
     // Kada upload nesto koristeci ovaj ref zelimo da file ima ime fajla koji upload
     const storageRef = projectStorage.ref(file.name);
+    // Ref za kolekciju u kojoj cuvamo url
+    const collectionRef = projectFirestore.collection("iamges");
     // Upload file u ref gore. .put je async, tako da nam treba nesto da znamo kada je zavrseno
     storageRef.put(file).on(
       "state_changed",
@@ -25,6 +31,10 @@ const useStorage = (file) => {
       async () => {
         // Nalazi file koji smo upload, uzima URL
         const url = await storageRef.getDownloadURL();
+        // Takodje moramo da sacuvamo url u Firestore
+        // Timestamp izvlacimo iz config.js (firebase)
+        const createdAt = timestamp();
+        collectionRef.add({ url, createdAt });
         setUrl(url);
       }
     );
